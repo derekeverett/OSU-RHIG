@@ -4,11 +4,12 @@ cd ../Models/TRENTO
 
 #load dependencies
 module load cmake/3.6.1
-module load gnu/4.8.5 boost
-module load   
-module load hdf5-serial
+module load gnu/6.3.0 boost
+module load gnu/6.3.0 hdf5-serial
 
-mkdir build && cd build
+mkdir build
+cd build
+make clean
 cmake ..
 make install
 
@@ -23,4 +24,4 @@ cd ../
 #compile iS3D
 cd iS3D
 sh cleanMake.sh
-
+cd ../
