@@ -4,12 +4,12 @@ cd ../Models/TRENTO
 
 #load dependencies
 module load cmake/3.6.1
-module load gnu/6.3.0 boost
+module load gnu boost
 module load gnu/6.3.0 hdf5-serial
 
+rm -r build
 mkdir build
 cd build
-make clean
 cmake ..
 make install
 
