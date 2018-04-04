@@ -33,6 +33,10 @@ rm -r output
 mkdir output
 ./RunFreestreamMilne
 
+
+#if [ $1 -gt 1 ]
+#then
+
 #copy the results of preequilibrium module to the hydrodynamic module
 echo "*****Copying results to hydro  module*****"
 cp -a output/. ../gpu-vh/input/
@@ -44,6 +48,22 @@ rm -r output
 mkdir output
 ./gpu-vh --config rhic-conf/ -o output -h
 
+#else
+
+#copy the results of preequilibrium module to the hydrodynamic module
+#echo "*****Copying results to hydro  module*****"
+#cp -a output/. ../cpu-vh/input/
+
+#run the hydrodynamics model
+#echo "*****Running hydro module*****"
+#cd ../cpu-vh
+#rm -r output
+#mkdir output
+#./cpu-vh --config rhic-conf/ -o output -h
+
+#fi
+
+
 #copy the output of hydro module to Cooper Frye module
 echo "*****Copying results to Cooper Frye module*****"
 cp output/surface.dat ../iS3D/input/surface.dat
@@ -53,12 +73,28 @@ echo "*****Running Cooper Frye module*****"
 cd ../iS3D
 rm -r results
 mkdir results
+
+#if [ $1 -gt 1 ]
+#then
+
 ./iS_GPU.e
+
+#else
+
+#./iS.e
+
+#fi
 
 #copy the spectra to the Results directory
 echo "*****Copying Final results to /Results*****"
-mkdir ../../ASC/Results/results_${file}
-cp results/dN_pTdpTdphidy.dat ../../ASC/Results/results_${file}/.
+#mkdir ../../ASC/Results/results_${file}
+
+prefix="TRENTO_profiles/"
+suffix=".dat"
+
+foo=${file#$prefix}
+foo=${foo%$suffix}
+cp results/dN_pTdpTdphidy.dat ../../ASC/Results/dN_pTdpTdphidy_${foo}.dat
 
 #go back to ASC directory to start over again
 cd ../../ASC
