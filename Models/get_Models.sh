@@ -15,6 +15,12 @@ git clone https://github.com/derekeverett/cpu-vh.git cpu-vh
 #clone the OSU GPU Viscous Hydro Code
 git clone https://github.com/derekeverett/gpu-vh.git gpu-vh
 
+#clone the OSU CPU Viscous Anisotropic Hydro Code
+git clone https://github.com/derekeverett/cpu-vah.git cpu-vah
+
+#clone the OSU GPU Viscous Anisotropic Hydro Code
+git clone https://github.com/derekeverett/gpu-vah.git gpu-vah
+
 #clone the OSU 3D Cooper Frye Code
 git clone https://github.com/derekeverett/iS3D.git iS3D
 
