@@ -8,8 +8,7 @@ set OMP_NUM_THREADS $1
 echo "**********************************************************"
 echo "***********************OSU-RHIG***************************"
 echo "**********************************************************"
-
-echo "*****Running OSU-RHIG for Dynamically Sourced Hydro profiles *****"
+echo "**Running OSU-RHIG for Dynamically Sourced Hydro profiles**"
 
 rm -R Results3D
 mkdir Results3D
@@ -21,11 +20,11 @@ do
 #or run UrQMD to generate a profile?
 
 
-#copy the UrQMD particle list to part2s to generate source terms 
+#copy the UrQMD particle list to part2s to generate source terms
 echo "*****Copying initial particle list to source term module*****"
-cp $file ../Models/part2s/Set.dat 
+cp $file ../Models/part2s/Set.dat
 
-#run source terms module 
+#run source terms module
 echo "*****Running source terms module*****"
 cd ../Models/part2s
 rm -r output
@@ -59,7 +58,7 @@ echo "*****Copying results to afterburner module*****"
 cd ../afterburner/bin
 cp ../../iS3D/results/particle_list_osc.dat .
 
-#run the afterburner module 
+#run the afterburner module
 ./afterburner particle_list_osc.dat final_particles.dat
 
 #copy results back for analysis
