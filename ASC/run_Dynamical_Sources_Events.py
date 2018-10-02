@@ -77,4 +77,9 @@ for event in range(1, nevents + 1):
     os.chdir( '../../urqmd-afterburner' )
     os.system( 'mkdir ' + event_dir )
     os.chdir( event_dir )
-    os.system()
+    os.system( 'ln -s ../../iS3D/results/particle_list_osc.dat particle_list_osc.dat' )
+    os.system( 'ln -s ../bin/afterburner afterburner' )
+    os.system( 'ln -s ../bin/osc2u osc2u' )
+    os.system( 'ln -s ../bin/urqmd urqmd' )
+    #run the afterburner
+    os.system( 'afterburner particle_list_osc.dat final_particle_list.dat' )
