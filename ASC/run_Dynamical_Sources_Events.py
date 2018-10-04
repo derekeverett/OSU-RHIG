@@ -82,7 +82,7 @@ for event in range(1, nevents + 1):
     os.chdir( '../../iS3D' )
     os.system( 'mkdir ' + event_dir )
     os.chdir( event_dir )
-    os.system( 'mkdir output' )
+    os.system( 'mkdir results' )
     os.system( 'mkdir input' )
     os.chdir( 'input' )
     os.system( 'ln -s ../../../cpu-vh/' + event_dir + '/output/surface.dat surface.dat' )
@@ -92,18 +92,27 @@ for event in range(1, nevents + 1):
     os.system( 'ln -s ../tables tables' )
     os.system( 'ln -s ../PDG PDG' )
     os.system( 'ln -s ../iS3D.e iS3D.e' )
-    #run iS3D sampler to get particles list(s)
-    print("**Running iS3D Sampler**")
-    os.system( './iS3D.e' )
 
-    #copy particle list(s) to afterburner directory
-    os.chdir( '../../urqmd-afterburner' )
-    os.system( 'mkdir ' + event_dir )
-    os.chdir( event_dir )
-    os.system( 'ln -s ../../iS3D/results/particle_list_osc.dat particle_list_osc.dat' )
-    os.system( 'ln -s ../bin/afterburner afterburner' )
-    os.system( 'ln -s ../bin/osc2u osc2u' )
-    os.system( 'ln -s ../bin/urqmd urqmd' )
-    #run the afterburner
-    print("**Running urqmd-afterburner**")
-    os.system( 'afterburner particle_list_osc.dat final_particle_list.dat' )
+    #check if freezeout surface is empty
+    #if so, skip sampler and afterburner
+    non_empty_surf = os.stat("input/surface.dat").st_size
+    if (non_empty_surf):
+        #run iS3D sampler to get particles list(s)
+        print("**Running iS3D Sampler**")
+        os.system( './iS3D.e' )
+
+        #copy particle list(s) to afterburner directory
+        os.chdir( '../../urqmd-afterburner' )
+        os.system( 'mkdir ' + event_dir )
+        os.chdir( event_dir )
+        os.system( 'ln -s ../../iS3D/' + event_dir + '/results/particle_list_osc_1.dat particle_list_osc.dat' )
+        os.system( 'ln -s ../bin/afterburner afterburner' )
+        os.system( 'ln -s ../bin/osc2u osc2u' )
+        os.system( 'ln -s ../bin/urqmd urqmd' )
+        #run the afterburner
+        print("**Running urqmd-afterburner**")
+        os.system( 'afterburner particle_list_osc.dat final_particle_list.dat' )
+
+    else:
+        print("***Freezeout surface is empty for this event...***")
+        print("***Continuing to next event***")
