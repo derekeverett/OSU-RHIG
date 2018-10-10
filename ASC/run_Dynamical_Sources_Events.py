@@ -32,7 +32,7 @@ for event in range(1, nevents + 1):
     event_dir = "event_" + str(event)
 
     #Generate UrQMD event for Initial Condition
-    urqmd_dir = "../Models/urqmd"
+    urqmd_dir = "../Models/urqmd-modified"
     os.chdir( urqmd_dir )
     os.system( 'mkdir ' + event_dir )
     os.chdir( event_dir )
@@ -52,7 +52,7 @@ for event in range(1, nevents + 1):
     #go to part2s directory to get source terms
     os.system( 'mkdir ' + event_dir )
     os.chdir( event_dir )
-    os.system( 'ln -s ../../../urqmd/' + event_dir + '/output/Set.dat Set.dat' )
+    os.system( 'ln -s ../../../urqmd-modified/' + event_dir + '/output/Set.dat Set.dat' )
     os.system( 'mkdir output' )
     os.system( 'ln -s ../part2s part2s' )
     os.system( 'ln -s ../parameter.dat parameter.dat' )
