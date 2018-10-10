@@ -5,6 +5,7 @@ git clone https://github.com/Duke-QCD/trento3d.git TRENTO
 git clone https://github.com/LipeiDu/part2s.git part2s
 
 #clone Lipei's modified UrQMD for dynamical initial state / preequilibrium
+git clone https://derekeverett@bitbucket.org/lipeidu/urqmd-source.git urqmd
 
 #clone the OSU 3D Freestreaming Preequilibrium Model
 git clone https://github.com/derekeverett/freestream-milne.git freestream-milne
