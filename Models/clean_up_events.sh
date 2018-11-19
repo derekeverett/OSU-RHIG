@@ -1,5 +1,5 @@
 
-cd urqmd
+cd urqmd-modified
 rm -r event*
 cd ../
 

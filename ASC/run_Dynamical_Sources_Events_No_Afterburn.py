@@ -39,7 +39,7 @@ for event in range(1, nevents + 1):
     os.system( 'mkdir output' )
     os.system( 'ln -s ../runqmd.bash runqmd.bash' )
     os.system( 'ln -s ../urqmd.x86_64 urqmd.x86_64' )
-    os.system( 'ln -s ../../../ASC/inputFiles/DynamicalSourcesSample/urqmd-modified/inputfile inputfile' )
+    os.system( 'ln -s ../inputfile inputfile' )
     #run urqmd
     print("**Running UrQMD to generate Initial Conditions**")
     os.system( './runqmd.bash' )
@@ -52,10 +52,10 @@ for event in range(1, nevents + 1):
     #go to part2s directory to get source terms
     os.system( 'mkdir ' + event_dir )
     os.chdir( event_dir )
-    os.system( 'ln -s ../../../urqmd-modified/' + event_dir + '/output/Set1.dat Set1.dat' )
+    os.system( 'ln -s ../../../urqmd-modified/' + event_dir + '/output/event1.dat Set.dat' )
     os.system( 'mkdir output' )
     os.system( 'ln -s ../part2s part2s' )
-    os.system( 'ln -s ../../../../ASC/inputFiles/DynamicalSourcesSample/part2s/parameter.dat parameter.dat' )
+    os.system( 'ln -s ../parameter.dat parameter.dat' )
     #run part2s
     print("**Running part2s to generate Hydro Source Terms**")
     os.system( './part2s' )
@@ -71,7 +71,7 @@ for event in range(1, nevents + 1):
     os.system( 'ln -s ../../../part2s/sourceTerms/' + event_dir + '/output DynamicalSources' )
     os.chdir( '..' )
 
-    os.system( 'ln -s ../../../ASC/inputFiles/DynamicalSourcesSample/cpu-vh/rhic-conf rhic-conf' )
+    os.system( 'ln -s ../rhic-conf rhic-conf' )
     os.system( 'ln -s ../run.sh run.sh' )
     os.system( 'ln -s ../cpu-vh cpu-vh' )
     #run cpu-vh
@@ -87,7 +87,7 @@ for event in range(1, nevents + 1):
     os.chdir( 'input' )
     os.system( 'ln -s ../../../cpu-vh/' + event_dir + '/output/surface.dat surface.dat' )
     os.chdir( '..' )
-    os.system( 'ln -s ../../../ASC/inputFiles/DynamicalSourcesSample/iS3D/parameters.dat parameters.dat' )
+    os.system( 'ln -s ../parameters.dat parameters.dat' )
     os.system( 'ln -s ../deltaf_coefficients deltaf_coefficients' )
     os.system( 'ln -s ../tables tables' )
     os.system( 'ln -s ../PDG PDG' )
@@ -97,22 +97,21 @@ for event in range(1, nevents + 1):
     #if so, skip sampler and afterburner
     non_empty_surf = os.stat("input/surface.dat").st_size
     if (non_empty_surf):
-        #run iS3D sampler to get particles list(s)
+        #run iS3D to get particle spectra
         print("**Running iS3D Sampler**")
         os.system( './iS3D.e' )
 
-        #copy particle list(s) to afterburner directory
-        os.chdir( '../../urqmd-afterburner' )
+        #copy results to event directory
+        os.chdir( '../../ASC/ResultsDynamicSource' )
         os.system( 'mkdir ' + event_dir )
         os.chdir( event_dir )
-        os.system( 'ln -s ../../iS3D/' + event_dir + '/results/particle_list_osc_1.dat particle_list_osc.dat' )
-        os.system( 'ln -s ../bin/afterburner afterburner' )
-        os.system( 'ln -s ../bin/osc2u osc2u' )
-        os.system( 'ln -s ../bin/urqmd urqmd' )
-        #run the afterburner
-        print("**Running urqmd-afterburner**")
-        os.system( 'afterburner particle_list_osc.dat final_particle_list.dat' )
+        os.system( 'cp -R ../../../Models/iS3D/' + event_dir + '/results .' )
+        os.chdir( '../../' )
 
     else:
         print("***Freezeout surface is empty for this event...***")
         print("***Continuing to next event***")
+
+end_time = time.time()
+
+print("Total time = " + str( end_time - start_time ))
