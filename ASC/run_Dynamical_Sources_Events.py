@@ -87,7 +87,7 @@ for event in range(1, nevents + 1):
     os.chdir( 'input' )
     os.system( 'ln -s ../../../cpu-vh/' + event_dir + '/output/surface.dat surface.dat' )
     os.chdir( '..' )
-    os.system( 'ln -s ../../../ASC/inputFiles/DynamicalSourcesSample/iS3D/parameters.dat parameters.dat' )
+    os.system( 'ln -s ../../../ASC/inputFiles/DynamicalSourcesSample/iS3D/iS3D_parameters.dat iS3D_parameters.dat' )
     os.system( 'ln -s ../deltaf_coefficients deltaf_coefficients' )
     os.system( 'ln -s ../tables tables' )
     os.system( 'ln -s ../PDG PDG' )
