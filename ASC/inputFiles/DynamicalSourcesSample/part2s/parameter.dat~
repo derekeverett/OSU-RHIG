@@ -1,0 +1,14 @@
+nev 1
+sigma 0.5
+sigman 1.0
+delta_tau 0.2
+tauform 0.5
+t0 0.5
+Nx 101
+Ny 101
+Nn 1
+Nt 800
+dt 0.005
+dx 0.15
+dy 0.15
+dn 0.15
