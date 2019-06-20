@@ -1,5 +1,11 @@
-# OSU-RHIG
-Ohio State University Relativistic Heavy Ion Generator 
+## Purpose
 
-Get Models by running /Models/get_models.sh
+Ohio State University Relativistic Heavy Ion Generator
 
+## Usage
+
+One can download modules by running 
+```
+sh get_models.sh
+```
+in the `Models` directory. 
